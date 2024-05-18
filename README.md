@@ -42,6 +42,8 @@ Or update package.json by add `DEBUG=*` before script
 - Assign session id to `req.sessionId`: https://github.com/expressjs/session/blob/master/index.js#L221
 - Then get session id content from store: https://github.com/expressjs/session/blob/master/index.js#L493
 
+![](image/check_session_exist.png)
+
 ## The content of session file
 
 ```json
