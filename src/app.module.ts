@@ -27,10 +27,12 @@ export class AppModule {
 
     consumer
       .apply(
+        // This will return an expressjs middleware
+        // It will obtain session id from request, decrypt and encrypt it
         session({
           store: new RedisStore({
             client: this.redis,
-            prefix: 'nestjs-session-auth',
+            prefix: 'nestjs-session-auth-',
           }),
           saveUninitialized: false,
           secret: 'sup3rs3cr3t',
@@ -41,7 +43,14 @@ export class AppModule {
             maxAge: 60000,
           },
         }),
+
+        // A middleware that register passport session manager
         passport.initialize(),
+
+        // A middleware that get user from session id
+        // If user is existed assign that user to request
+        // Later we can check user is login or not by check request.user
+        // See LoggedInGuard
         passport.session(),
       )
       .forRoutes('*');
